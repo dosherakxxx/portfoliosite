@@ -3,7 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Портфолио веб-разработчика</title>
+    <title>ByteNest - Профессиональная разработка современных веб-сайтов | Веб-студия в Казахстане</title>
+    <meta name="description" content="Создаем современные веб-сайты для бизнеса. Разработка landing page, интернет-магазинов, корпоративных сайтов. Адаптивный дизайн, SEO оптимизация.">
+    <meta name="keywords" content="разработка сайтов, веб-разработка, создание сайтов, landing page, интернет-магазин, корпоративный сайт, веб-студия, Казахстан">
+    <meta name="author" content="ByteNest">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://bytenest.kz">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bytenest.kz">
+    <meta property="og:title" content="ByteNest - Профессиональная разработка современных веб-сайтов">
+    <meta property="og:description" content="Создаем современные веб-сайты для бизнеса. Разработка landing page, интернет-магазинов, корпоративных сайтов.">
+    <meta property="og:image" content="https://bytenest.kz/img/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://bytenest.kz">
+    <meta property="twitter:title" content="ByteNest - Профессиональная разработка современных веб-сайтов">
+    <meta property="twitter:description" content="Создаем современные веб-сайты для бизнеса. Разработка landing page, интернет-магазинов, корпоративных сайтов.">
+    <meta property="twitter:image" content="https://bytenest.kz/img/og-image.jpg">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ByteNest",
+        "description": "Веб-студия разработки современных сайтов",
+        "url": "https://bytenest.kz",
+        "logo": "https://bytenest.kz/img/logo.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+7-775-277-9169",
+            "contactType": "customer service",
+            "email": "kosachv18@bk.ru"
+        },
+        "sameAs": [
+            "https://web.telegram.org/k/#@dosherakxxxx",
+            "https://github.com/dosherakxxx"
+        ]
+    }
+    </script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -17,6 +60,11 @@
                     <span class="logo-text">Byte<span class="accent">Nest</span></span>
                 </a>
             </div>
+            <button class="mobile-menu-toggle" aria-label="Открыть меню">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="#home">Главная</a></li>
@@ -48,6 +96,46 @@
             </nav>
         </div>
     </header>
+    <!-- Add mobile menu container -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <span class="logo-text">Byte<span class="accent">Nest</span></span>
+            </div>
+            <button class="mobile-menu-close" aria-label="Закрыть меню">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#portfolio">Мои проекты</a></li>
+                <li><a href="#pricing">Цены</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#contac">Связаться</a></li>
+                <li>
+                    <button id="mobileThemeToggle" class="theme-toggle" aria-label="Переключить тему">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="glitch" data-text="ByteNest">ByteNest</h1>
@@ -115,20 +203,20 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <div class="portfolio-image">
-                        <img src="assets/cvetyastana.jpg" alt="Цветы Астана">
+                        <img src="img/cvetyastanakz.png" alt="Цветы Астана">
                         <div class="portfolio-overlay">
                             <a href="https://cvetyastana-kz.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
                         </div>
                     </div>
                     <div class="portfolio-content">
                         <h3>Cvety.astana.kz</h3>
-                        <p>Магазин цветов-рекламный сайт, анш первый проект.</p>
+                        <p>Магазин цветов-рекламный  сайт, наш первый проект.</p>
                     </div>
                 </div>
 
                 <div class="portfolio-item">
                     <div class="portfolio-image">
-                        <img src="assets/mainbet.jpg" alt="MainBet">
+                        <img src="img/mainbet.png" alt="MainBet">
                         <div class="portfolio-overlay">
                             <a href="https://mainbet.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
                         </div>
@@ -141,7 +229,7 @@
 
                 <div class="portfolio-item">
                     <div class="portfolio-image">
-                        <img src="assets/zinan4eg.jpg" alt="Zinan4eg Live">
+                        <img src="img/zidan4eglive.png" alt="Zinan4eg Live">
                         <div class="portfolio-overlay">
                             <a href="https://zidan4eglive.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
                         </div>
@@ -403,7 +491,7 @@
                         <div class="form-group">
                             <input type="email" id="contactEmail" name="email" placeholder="Ваш email" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group"></div>
                             <textarea id="contactMessage" name="message" placeholder="Ваше сообщение" rows="4" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Отправить сообщение</button>

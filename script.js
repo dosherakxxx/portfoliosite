@@ -165,45 +165,21 @@ function updateContent(lang) {
 }
 
 // Функции для модального окна
-function initModal() {
-    const modal = document.getElementById('orderModal');
-    const closeBtn = document.querySelector('.close-modal');
-    const orderButtons = document.querySelectorAll('a[href="#contact"]');
-    
-    orderButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            const card = button.closest('.pricing-card');
-            const serviceType = card.querySelector('.pricing-header h3').textContent;
-            const serviceSelect = document.getElementById('service');
-            
-            // Устанавливаем значение в select
-            Array.from(serviceSelect.options).forEach(option => {
-                if (option.text === serviceType) {
-                    serviceSelect.value = option.value;
-                }
-            });
-            
-            openModal();
-        });
-    });
-    
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-}
-
 function openModal() {
     const modal = document.getElementById('orderModal');
-    modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+    modal.classList.add('active');
 }
 
 function closeModal() {
     const modal = document.getElementById('orderModal');
+    modal.addEventListener('transitionend', function handler(e) {
+        if (e.propertyName === 'opacity' && !modal.classList.contains('active')) {
+            document.body.style.overflow = '';
+            modal.removeEventListener('transitionend', handler);
+        }
+    });
     modal.classList.remove('active');
-    document.body.style.overflow = '';
 }
 
 const TELEGRAM_TOKEN = '7921213339:AAG13NxWY3ds9TBTmrMjf6sq34t5vPTXaqU'; // Замените на ваш токен бота
@@ -316,9 +292,47 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.reload();
     });
 
-    initModal();
     initReviews();
-    
+
+    // Add event listeners for all order buttons
+    document.querySelectorAll('.btn-primary').forEach(button => {
+        if (button.textContent.trim() === 'Заказать') {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = button.closest('.pricing-card');
+                if (card) {
+                    const serviceType = card.querySelector('.pricing-header h3').textContent;
+                    const serviceSelect = document.getElementById('service');
+                    
+                    // Set the service in the modal
+                    Array.from(serviceSelect.options).forEach(option => {
+                        if (option.text === serviceType) {
+                            serviceSelect.value = option.value;
+                        }
+                    });
+                }
+                openModal();
+            });
+        }
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('orderModal').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) {
+            closeModal();
+        }
+    });
+
+    // Close modal when clicking the close button
+    document.querySelector('.close-modal').addEventListener('click', closeModal);
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.getElementById('orderModal').classList.contains('active')) {
+            closeModal();
+        }
+    });
+
     // Обновленная обработка отправки формы
     document.getElementById('orderForm').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -390,6 +404,89 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Произошла ошибка при отправке отзыва. Пожалуйста, попробуйте позже.');
         }
     });
+
+    // Mobile menu functionality
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const mobileMenuClose = document.querySelector('.mobile-menu-close');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+    function toggleMobileMenu() {
+        mobileMenu.classList.toggle('active');
+        mobileMenuToggle.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    }
+
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    mobileMenuClose.addEventListener('click', toggleMobileMenu);
+
+    // Close mobile menu when clicking on links
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            toggleMobileMenu();
+            // Smooth scroll to section
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Sync theme toggle between desktop and mobile
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Оптимизация для мобильных устройств
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    document.addEventListener('touchstart', e => {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', e => {
+        touchEndY = e.changedTouches[0].screenY;
+        const diffY = touchStartY - touchEndY;
+
+        // Закрываем меню при свайпе вверх
+        if (diffY > 50 && mobileMenu.classList.contains('active')) {
+            toggleMobileMenu();
+        }
+    }, { passive: true });
+
+    // Оптимизация прокрутки
+    let isScrolling;
+    window.addEventListener('scroll', () => {
+        window.clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            handleScroll();
+        }, 66);
+    }, { passive: true });
+
+    // Ленивая загрузка изображений
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
+
+    // Определение поддержки touch
+    if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+    }
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
