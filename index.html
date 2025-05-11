@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru" data-theme="dark">
+<html lang="ru" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Портфолио веб-разработчика</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="script.js" defer></script>
 </head>
@@ -19,11 +20,12 @@
             <nav class="main-nav">
                 <ul class="nav-links">
                     <li><a href="#home">Главная</a></li>
+                    <li><a href="#skills">Навыки</a></li>
                     <li><a href="#portfolio">Мои проекты</a></li>
-                    <li><a href="#skills">Скилы</a></li>
                     <li><a href="#pricing">Цены</a></li>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#contact">Связаться</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#contac">Связаться</a></li>
                     <li>
                         <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему">
                             <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
@@ -53,16 +55,63 @@
             <div class="hero-text">Разрабатываем современные веб-решения для вашего бизнеса</div>
             <div class="hero-buttons">
                 <a href="#portfolio" class="btn btn-primary">Наши проекты</a>
-                <a href="#contact" class="btn btn-outline">Связаться</a>
+                <a href="#contac" class="btn btn-outline">Связаться</a>
             </div>
         </div>
         <div class="hero-background">
             <div class="shapes"></div>
         </div>
     </section>
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2>Мои навыки</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fab fa-html5"></i>
+                    <h3>HTML/CSS</h3>
+                    <p>Создание современных адаптивных интерфейсов</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-js"></i>
+                    <h3>JavaScript</h3>
+                    <p>Разработка интерактивных веб-приложений</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Python</h3>
+                    <p>Бэкенд разработка и автоматизация</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-php"></i>
+                    <h3>PHP</h3>
+                    <p>Серверная разработка и CMS</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>MySQL</h3>
+                    <p>Проектирование и управление базами данных</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-bootstrap"></i>
+                    <h3>Bootstrap</h3>
+                    <p>Создание современных UI компонентов</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Flask</h3>
+                    <p>Разработка веб-приложений на Python</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Django</h3>
+                    <p>Разработка масштабируемых веб-приложений</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <section id="portfolio" class="portfolio-section">
         <div class="container">
-            <h2>Наши проекты</h2>
+            <h2>Мои проекты</h2>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <div class="portfolio-image">
@@ -72,8 +121,8 @@
                         </div>
                     </div>
                     <div class="portfolio-content">
-                        <h3>Цветы Астана</h3>
-                        <p>Интернет-магазин цветов и букетов в Астане</p>
+                        <h3>Cvety.astana.kz</h3>
+                        <p>Магазин цветов-рекламный сайт, анш первый проект.</p>
                     </div>
                 </div>
 
@@ -86,7 +135,7 @@
                     </div>
                     <div class="portfolio-content">
                         <h3>MainBet</h3>
-                        <p>Спортивный аналитический портал</p>
+                        <p>Сайт спортивных новостей, сразу 2 сайта.</p>
                     </div>
                 </div>
 
@@ -98,56 +147,106 @@
                         </div>
                     </div>
                     <div class="portfolio-content">
-                        <h3>Zinan4eg Live</h3>
-                        <p>Стриминговая платформа</p>
+                        <h3>Zinan4egLive</h3>
+                        <p>Сайт с новостями по спорту</p>
                     </div>
                 </div>
 
                 <div class="portfolio-item">
                     <div class="portfolio-image">
-                        <img src="assets/eurotherm.jpg" alt="EuroTherm">
+                        <img src="img/eurothermkz.png" alt="EuroTherm">
                         <div class="portfolio-overlay">
                             <a href="https://eurotherm.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
                         </div>
                     </div>
                     <div class="portfolio-content">
                         <h3>EuroTherm</h3>
-                        <p>Компания по установке систем отопления</p>
+                        <p>Компания по установки современной вентиляции.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <section id="pricing" class="pricing-section">
         <div class="container">
-            <h2>Тарифы</h2>
+            <h2>Цены</h2>
             <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Дополнительные услуги</h3>
+                        <div class="price">от 10 000 ₸</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Хостинг + домен - от 10 000 ₸</li>
+                        <li>Подключение CMS - от 20 000 ₸</li>
+                        <li>Техническая поддержка - от 50 000 ₸/мес</li>
+                        <li>Подключение CRM - от 12 000₸/мес</li>
+                        <li>Срок: 1-3 дня</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Заказать</a>
+                </div>
+
                 <div class="pricing-card basic">
                     <div class="pricing-header">
                         <h3>Лендинг</h3>
-                        <div class="price">от 150 000 ₸</div>
+                        <div class="price">от 100 000 ₸</div>
                     </div>
                     <ul class="pricing-features">
                         <li>Одностраничный сайт</li>
                         <li>Адаптивный дизайн</li>
-                        <li>До 5 секций</li>
+                        <li>До 5 блоков</li>
+                        <li>Форма обратной связи</li>
+                        <li>Базовая SEO оптимизация</li>
+                        <li>Срок: от 7 дней</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Заказать</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Портфолио</h3>
+                        <div class="price">от 120 000 ₸</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>До 5 страниц</li>
+                        <li>Адаптивный дизайн</li>
+                        <li>Галерея работ</li>
+                        <li>Форма обратной связи</li>
                         <li>SEO оптимизация</li>
-                        <li>Срок: 7-14 дней</li>
+                        <li>Срок: от 10дней</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Заказать</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Блог</h3>
+                        <div class="price">от 140 000 ₸</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Система управления контентом</li>
+                        <li>Категории и теги</li>
+                        <li>Комментарии</li>
+                        <li>Поиск по сайту</li>
+                        <li>SEO оптимизация</li>
+                        <li>Срок: 10-14 дней</li>
                     </ul>
                     <a href="#contact" class="btn btn-primary">Заказать</a>
                 </div>
 
                 <div class="pricing-card pro">
                     <div class="pricing-header">
-                        <h3>Бизнес сайт</h3>
-                        <div class="price">от 300 000 ₸</div>
+                        <h3>Корпоративный сайт</h3>
+                        <div class="price">от 180 000 ₸</div>
                     </div>
                     <ul class="pricing-features">
-                        <li>До 10 страниц</li>
+                        <li>До 15 страниц</li>
                         <li>Уникальный дизайн</li>
-                        <li>CMS система</li>
-                        <li>SEO оптимизация</li>
-                        <li>Срок: 14-30 дней</li>
+                        <li>Админ-панель</li>
+                        <li>Интеграция с CRM</li>
+                        <li>Полная SEO оптимизация</li>
+                        <li>Срок: 14-21 день</li>
                     </ul>
                     <a href="#contact" class="btn btn-primary">Заказать</a>
                 </div>
@@ -155,19 +254,195 @@
                 <div class="pricing-card premium">
                     <div class="pricing-header">
                         <h3>Интернет-магазин</h3>
-                        <div class="price">от 500 000 ₸</div>
+                        <div class="price">от 300 000 ₸</div>
                     </div>
                     <ul class="pricing-features">
-                        <li>Неограниченное количество товаров</li>
-                        <li>Система управления заказами</li>
+                        <li>Каталог товаров</li>
+                        <li>Корзина и оформление заказа</li>
                         <li>Интеграция с платежными системами</li>
-                        <li>SEO оптимизация</li>
-                        <li>Срок: от 30 дней</li>
+                        <li>Личный кабинет</li>
+                        <li>CRM система</li>
+                        <li>Срок: от 21 дня</li>
                     </ul>
                     <a href="#contact" class="btn btn-primary">Заказать</a>
                 </div>
             </div>
         </div>
     </section>
+    <!-- Модальное окно -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Заказать услугу</h2>
+            <form id="orderForm">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" id="phone" name="phone" placeholder="Ваш телефон" required>
+                </div>
+                <div class="form-group">
+                    <select id="service" name="service" required>
+                        <option value="">Выберите услугу</option>
+                        <option value="additional">Дополнительные услуги</option>
+                        <option value="landing">Лендинг</option>
+                        <option value="portfolio">Портфолио</option>
+                        <option value="blog">Блог</option>
+                        <option value="corporate">Корпоративный сайт</option>
+                        <option value="shop">Интернет-магазин</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" placeholder="Ваше сообщение" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить заявку</button>
+            </form>
+        </div>
+    </div>
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2>Отзывы</h2>
+            <div class="reviews-content">
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <h3>MainBet</h3>
+                        </div>
+                        <p>Отличная работа! Сайт полностью соответствует нашим требованиям. Рекомендуем!</p>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <h3>EuroTherm</h3>
+                        </div>
+                        <p>Профессиональный подход к работе. Все выполнено в срок и качественно.</p>
+                    </div>
+                </div>
+                <div class="review-form">
+                    <h3>Оставить отзыв</h3>
+                    <form id="reviewForm">
+                        <div class="form-group">
+                            <input type="text" id="companyName" name="company" placeholder="Название компании" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="reviewMessage" name="message" placeholder="Ваш отзыв" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить отзыв</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2>Обо мне</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="image-wrapper">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h4 class="current-status">Текущая деятельность</h4>
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>Разрабатываю сайты на заказ</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Прохожу курс Разработчик ПО в IT Step</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tasks"></i>
+                            <span>Обучаюсь новым языкам программирования</span>
+                        </div>
+                    </div>
+                    <div class="education">
+                        <h4>Образование</h4>
+                        <p><i class="fas fa-graduation-cap"></i> IT Step Academy</p>
+                        <p>Мои будущие языки програмирования:</p>
+                        <ul>
+                            <li>Фронтенд разработка: React.js Next.js</li>
+                            <li>Бэкенд разработка:C++, C#</li>
+                            <li>Фреймворки</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="contac" class="contact-section">
+        <div class="container">
+            <h2>Связаться со мной</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Телефон</h3>
+                        <p>+7 775 277 9169</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>kosachv18@bk.ru</p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-telegram"></i>
+                        <h3>Telegram</h3>
+                        <p>@dosherakxxxx</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="contactName" name="name" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="contactPhone" name="phone" placeholder="Ваш телефон" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="contactEmail" name="email" placeholder="Ваш email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="contactMessage" name="message" placeholder="Ваше сообщение" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <span class="logo-text">Byte<span class="accent">Nest</span></span>
+                    </div>
+                    <p>Создадим любой сайт для вашего бизнеса!</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Навигация</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#portfolio">Проекты</a></li>
+                        <li><a href="#pricing">Цены</a></li>
+                        <li><a href="#reviews">Отзывы</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>Соцсети</h4>
+                    <div class="social-links">
+                        <a href="https://web.telegram.org/k/#@dosherakxxxx" class="social-link"><i class="fab fa-telegram"></i></a>
+                        <a href="https://wa.me/77752779169" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://github.com/dosherakxxx" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ByteNest. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,5 +1,5 @@
 function initTheme() {
-    const theme = localStorage.getItem('theme') || 'dark';
+    const theme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', theme);
     updateThemeIcon(theme);
 }
@@ -164,6 +164,145 @@ function updateContent(lang) {
     });
 }
 
+// Функции для модального окна
+function initModal() {
+    const modal = document.getElementById('orderModal');
+    const closeBtn = document.querySelector('.close-modal');
+    const orderButtons = document.querySelectorAll('a[href="#contact"]');
+    
+    orderButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            const card = button.closest('.pricing-card');
+            const serviceType = card.querySelector('.pricing-header h3').textContent;
+            const serviceSelect = document.getElementById('service');
+            
+            // Устанавливаем значение в select
+            Array.from(serviceSelect.options).forEach(option => {
+                if (option.text === serviceType) {
+                    serviceSelect.value = option.value;
+                }
+            });
+            
+            openModal();
+        });
+    });
+    
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+}
+
+function openModal() {
+    const modal = document.getElementById('orderModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('orderModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+const TELEGRAM_TOKEN = '7921213339:AAG13NxWY3ds9TBTmrMjf6sq34t5vPTXaqU'; // Замените на ваш токен бота
+const TELEGRAM_CHAT_ID = '7520366041'; // Замените на ваш ID чата
+
+async function sendToTelegram(formData) {
+    // Получаем текст выбранной услуги вместо значения
+    let serviceText = "";
+    if (formData.get('service')) {
+        const select = document.getElementById('service');
+        const option = select.options[select.selectedIndex];
+        serviceText = option ? option.text : formData.get('service');
+    }
+
+    const text = `🔥 Новая заявка!
+
+👤 Имя: ${formData.get('name')}
+📱 Телефон: ${formData.get('phone')}
+🛠 Услуга: ${serviceText}
+💬 Сообщение: ${formData.get('message')}`;
+
+    const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+    const params = {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text,
+        parse_mode: 'HTML'
+    };
+
+    try {
+        const response = await fetch(url + '?' + new URLSearchParams(params));
+        const data = await response.json();
+        return data.ok;
+    } catch (error) {
+        console.error('Error sending to Telegram:', error);
+        return false;
+    }
+}
+
+// Массив для хранения отзывов
+let reviews = [
+    {
+        company: 'MainBet',
+        message: 'Отличная работа! Сайт полностью соответствует нашим требованиям. Рекомендуем!'
+    },
+    {
+        company: 'EuroTherm',
+        message: 'Профессиональный подход к работе. Все выполнено в срок и качественно.'
+    }
+];
+
+// Функция для добавления нового отзыва
+function addReview(review) {
+    reviews.push(review);
+    localStorage.setItem('reviews', JSON.stringify(reviews));
+    renderReviews();
+}
+
+// Функция для отображения отзывов
+function renderReviews() {
+    const reviewsGrid = document.querySelector('.reviews-grid');
+    reviewsGrid.innerHTML = reviews.map((review, index) => `
+        <div class="review-card">
+            <div class="review-header">
+                <h3>${review.company}</h3>
+                <button class="delete-review" data-index="${index}">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p>${review.message}</p>
+        </div>
+    `).join('');
+
+    // Добавляем обработчики для кнопок удаления
+    document.querySelectorAll('.delete-review').forEach(button => {
+        button.addEventListener('click', () => {
+            const index = parseInt(button.getAttribute('data-index'));
+            deleteReview(index);
+        });
+    });
+}
+
+// Функция удаления отзыва
+function deleteReview(index) {
+    if (confirm('Вы уверены, что хотите удалить этот отзыв?')) {
+        reviews.splice(index, 1);
+        localStorage.setItem('reviews', JSON.stringify(reviews));
+        renderReviews();
+    }
+}
+
+// Загрузка отзывов при старте
+function initReviews() {
+    const savedReviews = localStorage.getItem('reviews');
+    if (savedReviews) {
+        reviews = JSON.parse(savedReviews);
+    }
+    renderReviews();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
@@ -175,6 +314,81 @@ document.addEventListener('DOMContentLoaded', () => {
     logoLink.addEventListener('click', (e) => {
         e.preventDefault();
         window.location.reload();
+    });
+
+    initModal();
+    initReviews();
+    
+    // Обновленная обработка отправки формы
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        try {
+            const success = await sendToTelegram(formData);
+            
+            if (success) {
+                alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+                closeModal();
+                e.target.reset();
+            } else {
+                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+        }
+    });
+
+    // Обработчик формы контактов
+    document.getElementById('contactForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        try {
+            const success = await sendToTelegram(formData);
+            
+            if (success) {
+                alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+                e.target.reset();
+            } else {
+                alert('Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте позже.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Произошла ошибка при отправке сообщения. Пожалуйста, попробуйте позже.');
+        }
+    });
+
+    // Обработчик формы отзывов
+    document.getElementById('reviewForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        
+        const newReview = {
+            company: formData.get('company'),
+            message: formData.get('message')
+        };
+
+        const text = `📝 Новый отзыв!
+
+🏢 Компания: ${newReview.company}
+💬 Отзыв: ${newReview.message}`;
+
+        try {
+            const success = await sendToTelegram({ get: key => formData.get(key), message: text });
+            
+            if (success) {
+                addReview(newReview); // Добавляем отзыв на страницу
+                alert('Спасибо за ваш отзыв!');
+                e.target.reset();
+            } else {
+                alert('Произошла ошибка при отправке отзыва. Пожалуйста, попробуйте позже.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Произошла ошибка при отправке отзыва. Пожалуйста, попробуйте позже.');
+        }
     });
 });
 
