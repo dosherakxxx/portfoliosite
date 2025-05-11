@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио веб-разработчика</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="/" class="logo-link">
+                    <span class="logo-text">Byte<span class="accent">Nest</span></span>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#portfolio">Мои проекты</a></li>
+                    <li><a href="#skills">Скилы</a></li>
+                    <li><a href="#pricing">Цены</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Связаться</a></li>
+                    <li>
+                        <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему">
+                            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="glitch" data-text="ByteNest">ByteNest</h1>
+            <p class="hero-subtitle">Создаем цифровое будущее</p>
+            <div class="hero-text">Разрабатываем современные веб-решения для вашего бизнеса</div>
+            <div class="hero-buttons">
+                <a href="#portfolio" class="btn btn-primary">Наши проекты</a>
+                <a href="#contact" class="btn btn-outline">Связаться</a>
+            </div>
+        </div>
+        <div class="hero-background">
+            <div class="shapes"></div>
+        </div>
+    </section>
+    <section id="portfolio" class="portfolio-section">
+        <div class="container">
+            <h2>Наши проекты</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="assets/cvetyastana.jpg" alt="Цветы Астана">
+                        <div class="portfolio-overlay">
+                            <a href="https://cvetyastana-kz.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Цветы Астана</h3>
+                        <p>Интернет-магазин цветов и букетов в Астане</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="assets/mainbet.jpg" alt="MainBet">
+                        <div class="portfolio-overlay">
+                            <a href="https://mainbet.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>MainBet</h3>
+                        <p>Спортивный аналитический портал</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="assets/zinan4eg.jpg" alt="Zinan4eg Live">
+                        <div class="portfolio-overlay">
+                            <a href="https://zidan4eglive.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Zinan4eg Live</h3>
+                        <p>Стриминговая платформа</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img src="assets/eurotherm.jpg" alt="EuroTherm">
+                        <div class="portfolio-overlay">
+                            <a href="https://eurotherm.kz" target="_blank" class="btn-view">Посмотреть сайт</a>
+                        </div>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>EuroTherm</h3>
+                        <p>Компания по установке систем отопления</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2>Тарифы</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card basic">
+                    <div class="pricing-header">
+                        <h3>Лендинг</h3>
+                        <div class="price">от 150 000 ₸</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Одностраничный сайт</li>
+                        <li>Адаптивный дизайн</li>
+                        <li>До 5 секций</li>
+                        <li>SEO оптимизация</li>
+                        <li>Срок: 7-14 дней</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Заказать</a>
+                </div>
+
+                <div class="pricing-card pro">
+                    <div class="pricing-header">
+                        <h3>Бизнес сайт</h3>
+                        <div class="price">от 300 000 ₸</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>До 10 страниц</li>
+                        <li>Уникальный дизайн</li>
+                        <li>CMS система</li>
+                        <li>SEO оптимизация</li>
+                        <li>Срок: 14-30 дней</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Заказать</a>
+                </div>
+
+                <div class="pricing-card premium">
+                    <div class="pricing-header">
+                        <h3>Интернет-магазин</h3>
+                        <div class="price">от 500 000 ₸</div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Неограниченное количество товаров</li>
+                        <li>Система управления заказами</li>
+                        <li>Интеграция с платежными системами</li>
+                        <li>SEO оптимизация</li>
+                        <li>Срок: от 30 дней</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Заказать</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
