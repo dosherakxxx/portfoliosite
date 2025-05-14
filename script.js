@@ -279,22 +279,6 @@ function initReviews() {
     renderReviews();
 }
 
-function updateAuthButtons(isLoggedIn) {
-    const loginBtn = document.getElementById('loginBtn');
-    const registerBtn = document.getElementById('registerBtn');
-    const dashboardBtn = document.getElementById('dashboardBtn');
-    
-    if (isLoggedIn) {
-        loginBtn.style.display = 'none';
-        registerBtn.style.display = 'none';
-        dashboardBtn.style.display = 'block';
-    } else {
-        loginBtn.style.display = 'block';
-        registerBtn.style.display = 'block';
-        dashboardBtn.style.display = 'none';
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
     document.getElementById('themeToggle').addEventListener('click', toggleTheme);
@@ -504,46 +488,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('touch-device');
     }
 
-    // Check auth status on page load
+    // Check if user is logged in
     fetch('/php/auth/check_auth.php')
         .then(response => response.json())
         .then(data => {
-            updateAuthButtons(data.isLoggedIn);
-        })
-        .catch(error => console.error('Auth check error:', error));
-
-    // Keep only smooth scroll for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            if (data.isLoggedIn) {
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <a href="/dashboard.php" class="btn btn-primary auth-btn">Личный кабинет</a>
+                `;
+            }
         });
-    });
-
-    // Cart toggle functionality
-    const cartToggle = document.getElementById('cartToggle');
-    const cartSidebar = document.getElementById('cartSidebar');
-    const closeCart = document.getElementById('closeCart');
-
-    cartToggle.addEventListener('click', () => {
-        cartSidebar.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-
-    closeCart.addEventListener('click', () => {
-        cartSidebar.classList.remove('active');
-        document.body.style.overflow = '';
-    });
-
-    // Close cart on outside click
-    document.addEventListener('click', (e) => {
-        if (!cartSidebar.contains(e.target) && !cartToggle.contains(e.target)) {
-            cartSidebar.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    });
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

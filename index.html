@@ -25,6 +25,7 @@
     <meta property="twitter:title" content="ByteNest - Профессиональная разработка современных веб-сайтов">
     <meta property="twitter:description" content="Создаем современные веб-сайты для бизнеса. Разработка landing page, интернет-магазинов, корпоративных сайтов.">
     <meta property="twitter:image" content="https://bytenest.kz/img/og-image.jpg">
+<!-- vfvf -->
     <!-- Schema.org markup -->
     <script type="application/ld+json">
     {
@@ -48,10 +49,8 @@
     </script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="css/cart.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="script.js" defer></script>
-    <script src="js/cart.js" defer></script>
 </head>
 <body>
     <header class="main-header">
@@ -62,56 +61,29 @@
                 </a>
             </div>
             <nav class="main-nav">
-                <ul class="nav-links">
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#skills">Навыки</a></li>
-                    <li><a href="#portfolio">Мои проекты</a></li>
-                    <li><a href="#pricing">Цены</a></li>
-                    <li><a href="#reviews">Отзывы</a></li>
-                    <li><a href="#about">Обо мне</a></li>
-                    <li><a href="#contac">Связаться</a></li>
-                </ul>
+                <div class="nav-right">
+                    <div class="auth-buttons">
+                        <a href="login.php" class="btn btn-outline auth-btn">Войти</a>
+                        <a href="register.php" class="btn btn-primary auth-btn">Регистрация</a>
+                        <a href="dashboard.php" id="dashboardBtn" class="btn btn-primary auth-btn" style="display: none;">Личный кабинет</a>
+                    </div>
+                    <div class="cart-icon" id="cartIcon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                    <button class="mobile-menu-toggle">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
             </nav>
-            <div class="header-right">
-                <div class="auth-buttons">
-                    <a href="login.php" class="btn btn-outline auth-btn" id="loginBtn">Войти</a>
-                    <a href="register.php" class="btn btn-primary auth-btn" id="registerBtn">Регистрация</a>
-                    <a href="dashboard.php" class="btn btn-primary auth-btn" id="dashboardBtn" style="display: none;">Личный кабинет</a>
-                </div>
-                <div class="cart-toggle" id="cartToggle">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="cart-count">0</span>
-                </div>
-            </div>
         </div>
     </header>
 
-    <!-- Side Menu -->
-    <div class="slide-menu" id="slideMenu">
-        <div class="slide-menu-header">
-            <div class="logo">
-                <span class="logo-text">Byte<span class="accent">Nest</span></span>
-            </div>
-            <button class="close-menu" id="closeMenu">&times;</button>
-        </div>
-        <nav class="slide-menu-nav">
-            <ul>
-                <li><a href="#home" class="menu-link">Главная</a></li>
-                <li><a href="#skills" class="menu-link">Навыки</a></li>
-                <li><a href="#portfolio" class="menu-link">Мои проекты</a></li>
-                <li><a href="#pricing" class="menu-link">Цены</a></li>
-                <li><a href="#reviews" class="menu-link">Отзывы</a></li>
-                <li><a href="#about" class="menu-link">Обо мне</a></li>
-                <li><a href="#contac" class="menu-link">Связаться</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <!-- Cart Sidebar -->
+    <!-- Add cart sidebar -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h3>Корзина</h3>
-            <button class="close-cart" id="closeCart">&times;</button>
+            <button class="close-cart">&times;</button>
         </div>
         <div class="cart-items"></div>
         <div class="cart-footer">
@@ -123,6 +95,46 @@
         </div>
     </div>
 
+    <!-- Add mobile menu container -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <span class="logo-text">Byte<span class="accent">Nest</span></span>
+            </div>
+            <button class="mobile-menu-close" aria-label="Закрыть меню">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <ul class="mobile-nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#skills">Навыки</a></li>
+                <li><a href="#portfolio">Мои проекты</a></li>
+                <li><a href="#pricing">Цены</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#contac">Связаться</a></li>
+                <li>
+                    <button id="mobileThemeToggle" class="theme-toggle" aria-label="Переключить тему">
+                        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
     <section id="home" class="hero">
         <div class="hero-content">
             <h1 class="glitch" data-text="ByteNest">ByteNest</h1>
