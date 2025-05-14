@@ -487,6 +487,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('ontouchstart' in window) {
         document.body.classList.add('touch-device');
     }
+
+    // Check if user is logged in
+    fetch('/php/auth/check_auth.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.isLoggedIn) {
+                document.querySelector('.auth-buttons').innerHTML = `
+                    <a href="/dashboard.php" class="btn btn-primary auth-btn">Личный кабинет</a>
+                `;
+            }
+        });
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

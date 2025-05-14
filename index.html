@@ -74,6 +74,11 @@
                     <li><a href="#reviews">Отзывы</a></li>
                     <li><a href="#about">Обо мне</a></li>
                     <li><a href="#contac">Связаться</a></li>
+                    <li class="auth-buttons">
+                        <a href="login.php" class="btn btn-outline auth-btn">Войти</a>
+                        <a href="register.php" class="btn btn-primary auth-btn">Регистрация</a>
+                        <a href="/dashboard.php" id="dashboardBtn" class="btn btn-primary auth-btn" style="display: none;">Личный кабинет</a>
+                    </li>
                     <li>
                         <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему">
                             <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
@@ -532,5 +537,39 @@
             </div>
         </div>
     </footer>
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Вход</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Имя пользователя" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
