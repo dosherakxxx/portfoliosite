@@ -3,7 +3,7 @@ require_once 'php/config/db.php';
 require_once 'php/auth/auth.php';
 
 if (isLoggedIn()) {
-    header('Location: dashboard.php');
+    header('Location: index.html');
     exit();
 }
 ?>
@@ -25,19 +25,15 @@ if (isLoggedIn()) {
                 </a>
                 <h1>Вход в аккаунт</h1>
             </div>
-            <form id="loginForm" class="auth-form" action="php/auth/process.php" method="POST">
-                <input type="hidden" name="action" value="login">
-                
+            <form id="loginForm" class="auth-form" method="POST" onsubmit="return handleLogin(event)">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-
                 <div class="form-group">
                     <label for="password">Пароль</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-
                 <button type="submit" class="btn btn-primary btn-block">Войти</button>
             </form>
             <div class="auth-footer">
@@ -46,5 +42,32 @@ if (isLoggedIn()) {
             </div>
         </div>
     </div>
+
+<script>
+async function handleLogin(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    formData.append('action', 'login');
+
+    try {
+        const response = await fetch('php/auth/process.php', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+            window.location.href = data.redirect || 'dashboard.php';
+        } else {
+            alert(data.message || 'Неверный email или пароль');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Произошла ошибка при входе');
+    }
+    return false;
+}
+</script>
 </body>
 </html>

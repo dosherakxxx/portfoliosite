@@ -25,7 +25,7 @@ if (isLoggedIn()) {
                 </a>
                 <h1>Создать аккаунт</h1>
             </div>
-            <form id="registerForm" class="auth-form" action="php/auth/process.php" method="POST">
+            <form id="registerForm" class="auth-form" method="POST" onsubmit="return handleRegister(event)">
                 <input type="hidden" name="action" value="register">
                 
                 <div class="form-group">
@@ -56,5 +56,32 @@ if (isLoggedIn()) {
             </div>
         </div>
     </div>
+
+    <script>
+    async function handleRegister(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.append('action', 'register');
+
+        try {
+            const response = await fetch('php/auth/process.php', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                window.location.href = '/index.html';
+            } else {
+                alert(data.message || 'Ошибка при регистрации');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Произошла ошибка при регистрации');
+        }
+        return false;
+    }
+    </script>
 </body>
 </html>

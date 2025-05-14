@@ -12,7 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password = $_POST['password'];
             
             if (register($username, $email, $password)) {
-                echo json_encode(['success' => true]);
+                $_SESSION['email'] = $email;
+                echo json_encode(['success' => true, 'redirect' => '/dashboard.php']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Registration failed']);
             }
@@ -23,15 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password = $_POST['password'];
             
             if (login($email, $password)) {
-                echo json_encode(['success' => true]);
+                $_SESSION['email'] = $email;
+                echo json_encode(['success' => true, 'redirect' => '/dashboard.php']);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Invalid credentials']);
             }
-        }
-        
-        elseif ($action == 'logout') {
-            logout();
-            echo json_encode(['success' => true]);
         }
     }
 }
