@@ -1,33 +1,34 @@
 class Cart {
     constructor() {
-        this.items = [];
-        this.total = 0;
+        this.items = JSON.parse(localStorage.getItem('cart')) || [];
         this.init();
     }
 
     init() {
-        this.loadFromLocalStorage();
-        this.renderCartCount();
-        this.setupEventListeners();
+        this.renderCart();
+        this.updateCartCount();
+        this.initEventListeners();
     }
 
-    setupEventListeners() {
-        // Cart icon click
-        document.getElementById('cartIcon').addEventListener('click', () => {
-            document.getElementById('cartSidebar').classList.add('active');
-        });
-
-        // Close cart
-        document.querySelector('.close-cart').addEventListener('click', () => {
-            document.getElementById('cartSidebar').classList.remove('active');
-        });
-
+    initEventListeners() {
         // Add to cart buttons
         document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const { id, name, price } = e.target.dataset;
-                this.addItem({ id, name, price: parseInt(price) });
+            button.addEventListener('click', () => {
+                const { id, name, price } = button.dataset;
+                this.addItem({
+                    id,
+                    name,
+                    price: parseInt(price)
+                });
             });
+        });
+
+        // Remove from cart buttons
+        document.querySelector('.cart-items').addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-item')) {
+                const id = e.target.dataset.id;
+                this.removeItem(id);
+            }
         });
 
         // Checkout button
@@ -38,14 +39,13 @@ class Cart {
 
     addItem(item) {
         const existingItem = this.items.find(i => i.id === item.id);
-        
         if (existingItem) {
-            existingItem.quantity++;
+            existingItem.quantity = (existingItem.quantity || 1) + 1;
         } else {
             this.items.push({ ...item, quantity: 1 });
         }
-
         this.updateCart();
+        alert('Товар добавлен в корзину!');
     }
 
     removeItem(id) {
@@ -54,57 +54,39 @@ class Cart {
     }
 
     updateCart() {
-        this.calculateTotal();
         this.saveToLocalStorage();
         this.renderCart();
-        this.renderCartCount();
-    }
-
-    calculateTotal() {
-        this.total = this.items.reduce((sum, item) => 
-            sum + (item.price * item.quantity), 0);
+        this.updateCartCount();
     }
 
     renderCart() {
         const cartItems = document.querySelector('.cart-items');
-        const totalElement = document.querySelector('.total-price');
+        const totalPrice = document.querySelector('.total-price');
+        
+        if (!cartItems || !totalPrice) return;
 
         cartItems.innerHTML = this.items.map(item => `
             <div class="cart-item">
                 <div class="cart-item-info">
-                    <div class="cart-item-title">${item.name}</div>
-                    <div class="cart-item-price">${item.price} ₸ × ${item.quantity}</div>
+                    <h4>${item.name}</h4>
+                    <p>${item.price.toLocaleString()} ₸ × ${item.quantity || 1}</p>
                 </div>
-                <i class="fas fa-times remove-item" data-id="${item.id}"></i>
+                <button class="remove-item" data-id="${item.id}">×</button>
             </div>
         `).join('');
 
-        totalElement.textContent = `${this.total} ₸`;
-
-        // Add remove item listeners
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', (e) => {
-                this.removeItem(e.target.dataset.id);
-            });
-        });
+        const total = this.items.reduce((sum, item) => 
+            sum + (item.price * (item.quantity || 1)), 0);
+        totalPrice.textContent = `${total.toLocaleString()} ₸`;
     }
 
-    renderCartCount() {
-        const count = this.items.reduce((sum, item) => sum + item.quantity, 0);
+    updateCartCount() {
+        const count = this.items.reduce((sum, item) => sum + (item.quantity || 1), 0);
         document.querySelector('.cart-count').textContent = count;
     }
 
     saveToLocalStorage() {
         localStorage.setItem('cart', JSON.stringify(this.items));
-    }
-
-    loadFromLocalStorage() {
-        const saved = localStorage.getItem('cart');
-        if (saved) {
-            this.items = JSON.parse(saved);
-            this.calculateTotal();
-            this.renderCart();
-        }
     }
 
     async checkout() {
@@ -113,9 +95,10 @@ class Cart {
             return;
         }
 
-        const message = `🛒 Новый заказ!\n\n${this.items.map(item => 
-            `${item.name} - ${item.quantity}шт. × ${item.price}₸`
-        ).join('\n')}\n\n💰 Итого: ${this.total}₸`;
+        const orderText = `🛒 Новый заказ!\n\n${this.items.map(item => 
+            `${item.name}\nКоличество: ${item.quantity || 1}\nЦена: ${item.price.toLocaleString()} ₸`
+        ).join('\n\n')}\n\n💰 Итого: ${this.items.reduce((sum, item) => 
+            sum + (item.price * (item.quantity || 1)), 0).toLocaleString()} ₸`;
 
         try {
             const response = await fetch('php/telegram.php', {
@@ -123,14 +106,15 @@ class Cart {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ message })
+                body: JSON.stringify({ message: orderText })
             });
 
             if (response.ok) {
-                alert('Заказ успешно оформлен!');
+                alert('Заказ успешно оформлен! Мы свяжемся с вами в ближайшее время.');
                 this.items = [];
                 this.updateCart();
                 document.getElementById('cartSidebar').classList.remove('active');
+                document.body.style.overflow = '';
             }
         } catch (error) {
             console.error('Error:', error);
