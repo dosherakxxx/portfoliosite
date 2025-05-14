@@ -34,15 +34,28 @@ unset($_SESSION['success_message']);
 
         <div class="dashboard-header">
             <div class="user-welcome">
-                <div class="user-avatar">
-                    <?php echo $avatar_letter; ?>
+                <div class="avatar-container">
+                    <?php if (isset($_SESSION['avatar']) && $_SESSION['avatar']): ?>
+                        <img src="uploads/avatars/<?php echo htmlspecialchars($_SESSION['avatar']); ?>" alt="Avatar" class="user-avatar">
+                    <?php else: ?>
+                        <div class="user-avatar"><?php echo strtoupper(substr($_SESSION['username'], 0, 1)); ?></div>
+                    <?php endif; ?>
+                    <form id="avatarForm" action="php/auth/update_avatar.php" method="POST" enctype="multipart/form-data">
+                        <label for="avatar" class="avatar-upload">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;">
+                    </form>
                 </div>
-                <div>
-                    <h2>Добро пожаловать, <?php echo htmlspecialchars($username); ?>!</h2>
-                    <p><?php echo htmlspecialchars($email); ?></p>
+                <div class="user-info">
+                    <h2>Добро пожаловать, <?php echo htmlspecialchars($_SESSION['username']); ?>!</h2>
+                    <p><?php echo htmlspecialchars($_SESSION['email']); ?></p>
                 </div>
             </div>
-            <a href="index.html" class="btn btn-outline">На главную</a>
+            <div class="dashboard-actions">
+                <a href="/" class="btn btn-outline">На главную</a>
+                <a href="php/auth/logout.php" class="btn btn-danger">Выйти</a>
+            </div>
         </div>
 
         <div class="dashboard-sections">
@@ -93,6 +106,11 @@ unset($_SESSION['success_message']);
                 e.preventDefault();
                 alert('Пароли не совпадают!');
             }
+        });
+
+        // Auto-submit avatar form when file is selected
+        document.getElementById('avatar').addEventListener('change', function() {
+            document.getElementById('avatarForm').submit();
         });
     });
     </script>
